@@ -108,3 +108,52 @@ def is_pangram(s):
         return True
     else: 
         return False
+
+# --------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------
+
+"""
+Write simple .camelCase method 
+(camel_case function in PHP, CamelCase in C# or 
+camelCase in Java) for strings. 
+All words must have their first letter capitalized 
+without spaces.
+
+For instance:
+
+camelcase("hello case") => HelloCase
+camelcase("camel case word") => CamelCaseWord
+"""
+
+def camel_case(string):
+    #your code here
+    return string.title().replace(" ", "")
+
+
+# --------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------
+
+"""
+Write a function that when given a URL as a string, 
+parses out just the domain name and returns it as a string. 
+For example:
+
+* url = "http://github.com/carbonfive/raygun" -> domain name = "github"
+* url = "http://www.zombie-bites.com"         -> domain name = "zombie-bites"
+* url = "https://www.cnet.com"                -> domain name = cnet"
+"""
+
+def domain_name(url):
+    url = url.replace("https", "").replace("http", "").replace("://", "").replace("www.", "")
+    for idx, char in enumerate(url):
+        if char == ".":
+            url = url[:idx]
+    return url
+
+# --------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------
+
+"""
+
+"""
+
