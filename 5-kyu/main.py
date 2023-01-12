@@ -133,6 +133,35 @@ def domain_name(url):
 # --------------------------------------------------------------------------------------------
 
 """
+Move the first letter of each word to the end of it, 
+then add "ay" to the end of the word. 
+Leave punctuation marks untouched.
 
+Examples
+pig_it('Pig latin is cool') # igPay atinlay siay oolcay
+pig_it('Hello world !')     # elloHay orldway !
 """
+
+import string
+def pig_it(text):
+    #your code here
+    word_list = text.split(" ")
+    latin = "ay"
+    for idx, word in enumerate(word_list):
+        word_punct = "".join([w for w in word if w in string.punctuation])
+        if word in string.punctuation:
+            word = word.strip(string.punctuation)
+        else:
+            if len(word) == 1:
+                word = word + latin
+            else:
+                word = word[1:] + word[0:1] + latin
+        word_list[idx] = word + word_punct
+    return " ".join(word_list)
+
+# BETTER SOLUTION
+def pig_it(text):
+    lst = text.split()
+    # isalpha() is a funciton that returns true if it's a-z or 0-9
+    return ' '.join( [word[1:] + word[:1] + 'ay' if word.isalpha() else word for word in lst])
 
