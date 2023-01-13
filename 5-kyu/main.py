@@ -164,4 +164,4 @@ def pig_it(text):
     lst = text.split()
     # isalpha() is a funciton that returns true if it's a-z or 0-9
     return ' '.join( [word[1:] + word[:1] + 'ay' if word.isalpha() else word for word in lst])
-
+    
