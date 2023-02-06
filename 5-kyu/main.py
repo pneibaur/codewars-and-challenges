@@ -164,4 +164,98 @@ def pig_it(text):
     lst = text.split()
     # isalpha() is a funciton that returns true if it's a-z or 0-9
     return ' '.join( [word[1:] + word[:1] + 'ay' if word.isalpha() else word for word in lst])
+
+# --------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------
+
+"""
+A format for expressing an ordered list of integers 
+is to use a comma separated list of either
+
+- individual integers
+- or a range of integers denoted by the starting integer 
+separated from the end integer in the range by a dash, '-'. 
+The range includes all integers in the interval including both endpoints. 
+It is not considered a range unless it spans at least 3 numbers. 
+For example "12,13,15-17"
+
+Complete the solution so that it takes a list of integers 
+in increasing order and returns a correctly formatted string in the range format.
+
+Example:
+
+input([-10, -9, -8, -6, -3, -2, -1, 0, 1, 3, 4, 5, 7, 8, 9, 10, 11, 14, 15, 17, 18, 19, 20])
+# returns "-10--8,-6,-3-1,3-5,7-11,14,15,17-20"
+"""
+
+def solution(args):
+    formatted_str = ""
+    for idx, num in enumerate(args):
+    #   as long as idx is in range of args...
+        if idx < len(args) - 1:
+    #       if the num only has bigger nums above (right of) it
+            if num + 1 == args[idx + 1] and num - 1 != args[idx - 1]:
+                formatted_str += str(num)
+    #       if the num only has smaller nums below (left of) it. 
+            elif num - 1 == args[idx - 1] and num + 1 != args[idx + 1]:
+                if num - 2 != args[idx - 2]:
+                    formatted_str += "," + str(num) + ","
+                else:
+                    formatted_str += "-" + str(num) + ","
+    #       if the num does not have any adjacent nums next to it
+            elif num - 1 != args[idx - 1] and num + 1 != args[idx + 1]:
+                formatted_str += str(num) + ","
+            else:
+    #           nums in between a run are passed by and not notated. 
+                pass
+    #   if num is the last in the list...
+        else:
+            if num - 2 == args[idx - 2]:
+                formatted_str += "-" + str(num)
+            # check for commas
+            else:
+                if formatted_str[-1] == ",":
+                    formatted_str += str(num)
+                else:
+                    formatted_str += "," + str(num)
+    return(formatted_str)
+
+# BETTER SOLUTION
+
+def solution(args):
+    out = []
+    # technique to set two variables (beg & end) to args[0]
+    beg = end = args[0]
+    # technique to start loop on the 2nd number, and then add an empty argument at the end
+    # of the 'for' loop. 
+    for n in args[1:] + [""]:        
+        # this basically controlls three variables: 'beg', 'end', 'n', and sets them at different
+        # times in the loop. 
+        # 1st time through: beg & end are set to -10 (from input in the description), 
+        # while n is set to -9. this doesn't trigger the if statement, so end is now set to 'n', while beg stays the same.
+        # once 'n' jumps a few numbers, then it triggers the if statement. 
+        if n != end + 1:
+            # since end starts increasing right away, this first 'if' is reserved for the 
+            # end of the 'for' loop, when everything will be set to the empty argument "".
+            if end == beg:
+                out.append( str(beg) )
+            # if the numbers are adjacent, and the n has jumped some nums. 
+            elif end == beg + 1:
+                out.extend( [str(beg), str(end)] )
+            # since n has jumped nums, and beg and end are different, AND end has been incrementing steadily, 
+            # this means it's the end of the run of nums. 
+            else:
+                out.append( str(beg) + "-" + str(end) )
+            # beg gets a new starting num while end continues to increase with n. 
+            beg = n
+        end = n
     
+    return ",".join(out)
+    
+# --------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------
+
+"""
+
+"""
+        
