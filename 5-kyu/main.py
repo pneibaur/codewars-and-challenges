@@ -251,11 +251,73 @@ def solution(args):
         end = n
     
     return ",".join(out)
+
+# --------------------------------------------------------------------------------------------
+# --------------------------------------------------------------------------------------------
+
+"""
+Create a function taking a positive integer between 1 and 3999 (both included) 
+as its parameter and returning a string containing the Roman Numeral 
+representation of that integer.
+
+Modern Roman numerals are written by expressing each digit 
+separately starting with the left most digit and skipping any digit 
+with a value of zero. In Roman numerals 1990 is rendered: 1000=M, 900=CM, 90=XC; 
+resulting in MCMXC. 2008 is written as 2000=MM, 8=VIII; or MMVIII. 
+1666 uses each Roman symbol in descending order: MDCLXVI.
+
+Example:
+
+solution(1000) # should return 'M'
+Remember that there can't be more than 3 identical symbols in a row.
+
+Reference Chart:
+Symbol    Value
+I          1
+V          5
+X          10
+L          50
+C          100
+D          500
+M          1,000
+"""
+
+def solution(n):
+    print(n % 1000)
+    m = ["", "M", "MM", "MMM"]
+    c = ["", "C", "CC", "CCC", "CD", "D", "DC", "DCC", "DCCC", "CM"]
+    x = ["", "X", "XX", "XXX", "XL", "L", "LX", "LXX", "LXXX", "XC"]
+    i = ["", "I", "II", "III", "IV", "V", "VI", "VII", "VIII", "IX"]
     
-# --------------------------------------------------------------------------------------------
-# --------------------------------------------------------------------------------------------
+    k = m[n // 1000]
+    bennys = c[(n % 1000) // 100]
+    hammys = x[(n % 100) // 10]
+    washingtons = i[(n % 10) // 1]
+    
+    return k + bennys + hammys + washingtons
 
-"""
+# BETTER SOLUTION: 
 
-"""
-        
+def solution(n):
+    # This is great because the key is the number instead of the roman numeral. 
+    roman_numerals = {1000:'M',
+                      900: 'CM',
+                      500: 'D',
+                      400: 'CD',
+                      100: 'C',
+                      90: 'XC',
+                      50: 'L',
+                      40: 'XL',
+                      10: 'X',
+                      9: 'IX',
+                      5: 'V',
+                      4: 'IV',
+                      1: 'I'
+    }
+    roman_string = ''
+    # start the key at the '1'. 
+    for key in sorted(roman_numerals.keys(),reverse=True):
+        while n >= key:
+            roman_string += roman_numerals[key]
+            n -= key
+    return roman_string
